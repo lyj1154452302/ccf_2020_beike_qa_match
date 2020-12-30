@@ -16,7 +16,7 @@
 
 由于BERT里的token是字符级别的，因此我没有做分词，停用词和标点符号我也没有做处理，因为我觉得部分停用词和标点符号在问答场景下可以提供特定的信息。最终，我只是将question和reply做成了pair对。
 
-![数据处理](img\数据处理.png)
+<img src="img\数据处理.png" alt="BERTSimaese" style="zoom: 80%;" />
 
 # 预训练模型
 
@@ -40,7 +40,7 @@ RoBERTa: [chinese-roberta-wwm-ext](https://github.com/ymcui/Chinese-BERT-wwm)
 
 ### ---------------------------
 
-看了夕小瑶大神的文章里提到的**Siamese**结构后，链接在这：https://zhuanlan.zhihu.com/p/87384188。开始尝试**Siamese**，我尝试多个结构来作为sentence encoder，分别有：BERT的最后一层输出、BILSTM、CNN。下面几个baseline就是围绕这些来的。
+看了[夕小瑶大神的文章](https://zhuanlan.zhihu.com/p/87384188)里提到的**Siamese**结构后，。开始尝试**Siamese**，我尝试多个结构来作为sentence encoder，分别有：BERT的最后一层输出、BILSTM、CNN。下面几个baseline就是围绕这些来的。
 
 <img src="img\Simaese.png" alt="Simaese" style="zoom:50%;" />
 
@@ -52,7 +52,7 @@ RoBERTa: [chinese-roberta-wwm-ext](https://github.com/ymcui/Chinese-BERT-wwm)
 
 <center>图1</center>
 
-<img src="D:\PyCharmProjects\ccf_2020_beike_qa_match\img\BERTSimaese-2.png" alt="BERTSimaese-2" style="zoom: 50%;" />
+<img src="img\BERTSimaese-2.png" alt="BERTSimaese-2" style="zoom: 50%;" />
 
 <center>图2</center>
 
@@ -64,7 +64,7 @@ RoBERTa: [chinese-roberta-wwm-ext](https://github.com/ymcui/Chinese-BERT-wwm)
 
 <center>图1</center>
 
-<img src="D:\PyCharmProjects\ccf_2020_beike_qa_match\img\Simaese BERT+LSTM-2.png" alt="Simaese BERT+LSTM-2" style="zoom:50%;" />
+<img src="img\Simaese BERT+LSTM-2.png" alt="Simaese BERT+LSTM-2" style="zoom:50%;" />
 
 <center>图2</center>
 
@@ -80,7 +80,7 @@ RoBERTa: [chinese-roberta-wwm-ext](https://github.com/ymcui/Chinese-BERT-wwm)
 
 **Siamese**结构，bert后接CNN（准确来说是TextCNN），注意，这里是对question和reply**分别encode**，这里的CNN是**tied weigt**的（encode question用的CNN和encode reply用的CNN是同一个，即权重绑定的）。之后根据CNN的输出取句向量，这里取句向量的方式是max pooling，然后做交互，具体的交互方式主要是两个句向量相乘、相减。其中，seq_1表示question，seq_2表示reply。该方案经过5折取平均后，测试集的效果在0.772。
 
-<img src="D:\PyCharmProjects\ccf_2020_beike_qa_match\img\Simaese BERT+CNN+TIEDWEIGHT.png" alt="Simaese BERT+CNN+TIEDWEIGHT" style="zoom:50%;" />
+<img src="img\Simaese BERT+CNN+TIEDWEIGHT.png" alt="Simaese BERT+CNN+TIEDWEIGHT" style="zoom:50%;" />
 
 ### 7. BERT后接TextCNN
 
